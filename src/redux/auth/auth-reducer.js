@@ -40,8 +40,3 @@ export default combineReducers({
     token,
     error
 });
-
-// user: {
-//       name: 'Tatiana',
-//       email: 'my.mail.tetiana@gmail.com'
-//     },

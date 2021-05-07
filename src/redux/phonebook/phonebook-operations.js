@@ -1,9 +1,6 @@
 import Axios from 'axios';
-// import shortid from 'shortid';
-
 import actions from './phonebook-actions';
 
-// Axios.defaults.baseURL = 'https://goit-phonebook-api.herokuapp.com/';
 Axios.defaults.baseURL = 'https://connections-api.herokuapp.com/'; 
 
 const fetchContacts = () => async dispatch => {

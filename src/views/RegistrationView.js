@@ -1,10 +1,11 @@
 import { Component } from 'react';
-import { Button } from 'react-bootstrap';
-import { ToastContainer, toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import authOperations from '../redux/auth/auth-operations';
 import authSelectors from '../redux/auth/auth-selectors';
 import styles from './css/RegistrationView.module.css';
+import { Button } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class RegistrationView extends Component {
     state = {
@@ -27,25 +28,17 @@ class RegistrationView extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        if (this.state.email && this.state.password !== '') {
-        this.props.onRegister(this.state);
-        this.setState({ name: '', email: '', password: ''});
-        return
-        }
-        else {
-            this.setState({ alert: true})
-        }
+        if (this.state.name === '') {
+            toast.error('Поле "Имя" не заполнено');
+        } if (this.state.email === '') { 
+            toast.error('Поле "Адрес почты" не заполнено'); 
+        } if (this.state.password.length < 7) { 
+            toast.error('Неправильный пароль'); 
+        } else {
+            this.props.onRegister(this.state);
+            this.setState({ name: '', email: '', password: '' });
+        };
     };
-
-    notify = () => toast.error('🦄 Wow so easy!', {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-    });
 
     render() {
         return (
@@ -69,7 +62,7 @@ class RegistrationView extends Component {
                         onChange={this.onEmailChange}
                         value={this.state.email}
                     />
-                    <label>Пароль</label>
+                    <label>Пароль*</label>
                     <input
                         name='password'
                         className={styles.input}
@@ -77,19 +70,9 @@ class RegistrationView extends Component {
                         onChange={this.onPasswordChange}
                         value={this.state.password}
                     />
+                    <p className={styles.textPass}>*Пароль должен состоять не менее, чем из 8 символов</p>
                     <Button className={styles.button} variant="primary" type="submit">Отправить</Button>
-                    {this.state.alert &&
-                        <ToastContainer
-                        position="top-right"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        />}
+                    <ToastContainer />
                 </form>
             </>
         )
@@ -106,3 +89,17 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationView);
+
+
+// {this.state.alert &&
+//                         <ToastContainer
+//                         position="top-right"
+//                         autoClose={5000}
+//                         hideProgressBar={false}
+//                         newestOnTop={false}
+//                         closeOnClick
+//                         rtl={false}
+//                         pauseOnFocusLoss
+//                         draggable
+//                         pauseOnHover
+//                         />}

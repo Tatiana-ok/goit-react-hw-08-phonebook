@@ -22,8 +22,11 @@ p {
 }
 
 .btnOfListContact {
-  height: 20px;
-  min-width: 30px;
+  display: inline;
+  height: 24px;
+  min-width: 40px;
+  text-align: center;
+  line-height: 10px;
 }
 
 .btnOfListContact {

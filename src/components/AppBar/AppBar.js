@@ -9,9 +9,11 @@ const AppBar = ({ isAuthenticated }) => {
     return (
         <header>
             <span className={styles.logo} role="icon" aria-label="logo"></span>
-            <MainNavigation />
-            {isAuthenticated ? <UserMenu /> : <AuthNavigation />}
-            <hr />
+            <div className={styles.AppBar}>
+                <MainNavigation />
+                {isAuthenticated ? <UserMenu /> : <AuthNavigation />}
+            </div>
+            <hr className={styles.line} />
         </header>
     )
 };
